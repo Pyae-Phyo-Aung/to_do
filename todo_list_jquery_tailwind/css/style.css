@@ -1,0 +1,33 @@
+
+
+.text-box {
+    padding: 16px 5px;
+    width: 90%;
+    border: 1px solid silver;
+    font-size: 16px;
+}
+
+ul li.checked {
+    text-decoration: line-through;
+}
+
+
+
+
+ul li label.checked {
+    text-decoration: line-through;
+}
+
+.hide {
+    display: none !important;
+    background-color: red;
+}
+
+
+
+.edit_checkbox {
+    padding: 16px 5px;
+    width: 100%;
+    border: 1px solid silver;
+    font-size: 16px;
+}
