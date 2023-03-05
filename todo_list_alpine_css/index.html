@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To Do List</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="container" x-data="{ newTodo: '', todos: JSON.parse(localStorage.getItem('todos') || '[]') }" x-init="$watch('todos', (val) => localStorage.setItem('todos', JSON.stringify(val)))">
+    <div class="card">
+      <h1 class="main-ttl">Todo</h1>
+      <div class="form-blk">
+        <form @submit.stop.prevent="todos = [].concat({ id: badId(), text: newTodo, completed: false }, todos); newTodo = '';">
+          <input type="text" name="todo" id="todo" class="text-box todo" placeholder="Add new..." x-model="newTodo" />
+          <button class="btn btn-submit">+</button>
+        </form>
+      </div>
+      <div class="filter-blk">
+        <span id="all" class="btn btn-link active">All</span>
+        <span id="pending" class="btn btn-link">Pending</span>
+        <span id="completed" class="btn btn-link">Complete</span>
+      </div>
+      <ul class="resultList">
+        <template x-for="todo in todos">
+          <li class="list flex my-3">
+            <p class="list-blk">
+              <input type="checkbox" class="checkbox" x-model="todo.completed">
+              <label class="task_name" x-text="todo.text" x-bind:class="{'completed': todo.completed}"></label>
+              <b class="delete" @click="todos = todos.filter(t => t.id !== todo.id)">x</b>
+            </p>
+            <input type="text" class="edit hide w-full border border-inherit" value="" id="">
+          </li>
+        </template>
+      </ul>
+      <h5 class="total"><span x-text="todos.filter((todo) => todo.completed).length"></span> items left</h5>
+      <div class="btn-group">
+        <button class="btn btn-action" x-model="todos.completed">Check All</button>
+        <button class="btn btn-action" @click="todos = []; localStorage.removeItem('todos');">
+          Clear Completed
+        </button>
+      </div>
+    </div>
+  </div>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
